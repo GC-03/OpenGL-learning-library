@@ -1,6 +1,7 @@
 /*
-* Shader class to read, compile and link shaders.
+* Implementation of the Shader class.
 *
+* Library used: GLFW3, GLAD
 * @author Giulio Cattelan
 */
 

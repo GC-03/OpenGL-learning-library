@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\2-Shaders\Shader class\Shader.cpp" />
+    <ClCompile Include="src\2-Shaders\Shader-class\Shader.cpp" />
     <ClCompile Include="src\1-Hello Triangle\drawing_triangle.cpp" />
     <ClCompile Include="src\1-Hello Triangle\Ex\Hello_Triangle_Ex1.cpp" />
     <ClCompile Include="src\1-Hello Triangle\Ex\Hello_Triangle_Ex2.cpp" />
@@ -27,7 +27,7 @@
     <ClCompile Include="src\1-Hello Triangle\indexed_drawing_square.cpp" />
     <ClCompile Include="lib\glad\src\glad.c" />
     <ClCompile Include="src\1-Hello Triangle\fps_performance.cpp" />
-    <ClCompile Include="src\2-Shaders\Shader class\test.cpp" />
+    <ClCompile Include="src\2-Shaders\Shader-class\test.cpp" />
     <ClCompile Include="src\2-Shaders\shaders2.cpp" />
     <ClCompile Include="src\2-Shaders\shaders.cpp" />
   </ItemGroup>
@@ -36,7 +36,7 @@
     <ClInclude Include="lib\glad\include\KHR\khrplatform.h" />
     <ClInclude Include="lib\glfw\include\glfw3.h" />
     <ClInclude Include="lib\glfw\include\glfw3native.h" />
-    <ClInclude Include="src\2-Shaders\Shader class\Shader.h" />
+    <ClInclude Include="src\2-Shaders\Shader-class\Shader.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\glfw\src\glfw3.lib" />
@@ -134,13 +134,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)lib\glfw\include;$(ProjectDir)lib\glad\include\glad;$(ProjectDir)lib\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\2-Shaders\Shader-class;$(ProjectDir)lib\glfw\include;$(ProjectDir)lib\glad\include\glad;$(ProjectDir)lib\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)lib\glad\src;$(ProjectDir)lib\glfw\src;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)src\2-Shaders\Shader-class;$(ProjectDir)lib\glad\src;$(ProjectDir)lib\glfw\src;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
@@ -152,13 +152,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)lib\glfw\include;$(ProjectDir)lib\glad\include\glad;$(ProjectDir)lib\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)src\2-Shaders\Shader-class;$(ProjectDir)lib\glfw\include;$(ProjectDir)lib\glad\include\glad;$(ProjectDir)lib\glad\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)lib\glad\src;$(ProjectDir)lib\glfw\src;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)src\2-Shaders\Shader-class;$(ProjectDir)lib\glad\src;$(ProjectDir)lib\glfw\src;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>

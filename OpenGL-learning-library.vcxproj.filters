@@ -42,10 +42,10 @@
     <ClCompile Include="src\2-Shaders\shaders2.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="src\2-Shaders\Shader class\Shader.cpp">
+    <ClCompile Include="src\2-Shaders\Shader-class\Shader.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
-    <ClCompile Include="src\2-Shaders\Shader class\test.cpp">
+    <ClCompile Include="src\2-Shaders\Shader-class\test.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>
@@ -62,7 +62,7 @@
     <ClInclude Include="lib\glad\include\glad\glad.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
-    <ClInclude Include="src\2-Shaders\Shader class\Shader.h">
+    <ClInclude Include="src\2-Shaders\Shader-class\Shader.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
   </ItemGroup>
