@@ -5,6 +5,7 @@
 * @author Giulio Cattelan
 */
 
+/*
 #include "Shader.h"
 
 #include <glad.h>
@@ -157,3 +158,4 @@ static std::string readShaderSourceCode(const char* shaderPath)
 	//return in string
 	return shaderStream.str();
 }
+*/

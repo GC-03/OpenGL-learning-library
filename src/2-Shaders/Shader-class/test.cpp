@@ -4,6 +4,8 @@
 * Library used: GLFW3, GLAD
 * Author: Giulio Cattelan
 */
+
+/*
 #define _USE_MATH_DEFINES
 
 #include <glad.h>
@@ -147,3 +149,4 @@ void processInput(GLFWwindow* window) {
 void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 	glViewport(0, 0, width, height);
 }
+*/
