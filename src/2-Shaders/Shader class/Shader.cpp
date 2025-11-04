@@ -60,15 +60,36 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath)
 		sourceCode[i] = stringSourceCode[i].c_str();
 	}
 	
+	//Compilation
+	unsigned int vertex, fragment;
 
+	vertex = glCreateShader(GL_VERTEX_SHADER);
+	glShaderSource(vertex, 1, &sourceCode[ShaderType::vertexShader], NULL);
+	glCompileShader(vertex);
+	checkShaderCompilation(vertex);
+
+	fragment = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(fragment, 1, &sourceCode[ShaderType::fragmentShader], NULL);
+	glCompileShader(fragment);
+	checkShaderCompilation(fragment);
+
+	//Linking
+	ID = glCreateProgram();
+	glAttachShader(ID, vertex);
+	glAttachShader(ID, fragment);
+	glLinkProgram(ID);
+	checkShaderProgramLinking(ID);
+
+	glDeleteShader(vertex);
+	glDeleteShader(fragment);
 }
 
-unsigned int Shader::getID()
+unsigned int Shader::getID() const
 {
 	return ID;
 }
 
-void Shader::use()
+void Shader::use() const
 {
 	glUseProgram(ID);
 }
@@ -115,7 +136,7 @@ const char* Shader::getShaderTypeName(int type)
 	}
 }
 
-void Shader::checkShaderProgramLink(GLuint shaderProgram)
+void Shader::checkShaderProgramLinking(GLuint shaderProgram)
 {
 	int success;
 	char infoLog[512];

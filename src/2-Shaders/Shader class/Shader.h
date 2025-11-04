@@ -18,10 +18,10 @@ public:
 	Shader(const char* vertexPath, const char*  fragmentPath);
 
 	//ID getter
-	unsigned int getID();
+	unsigned int getID() const;
 
 	//Use the shader
-	void use();
+	void use() const;
 
 	//Parameters setters
 	void setBool(const std::string& name, bool value) const;
@@ -35,7 +35,7 @@ private:
 
 	void checkShaderCompilation(GLuint shader);
 	const char* getShaderTypeName(int type);
-	void checkShaderProgramLink(GLuint shaderProgram);
+	void checkShaderProgramLinking(GLuint shaderProgram);
 };
 
 #endif // !SHADER_H
