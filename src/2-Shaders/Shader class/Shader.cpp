@@ -10,9 +10,57 @@
 
 #include <string>
 #include <iostream>
+#include<fstream>
+#include<sstream>
+
+enum ShaderType { vertexShader, fragmentShader };
+constexpr int MAX_SHADER_NUMBER = 2;
 
 Shader::Shader(const char* vertexPath, const char* fragmentPath)
 {
+	const char* paths[] = {vertexPath, fragmentPath};
+	const char* sourceCode[MAX_SHADER_NUMBER];
+	std::string stringSourceCode[MAX_SHADER_NUMBER];
+	std::ifstream shaderFile[MAX_SHADER_NUMBER];
+
+	//ensure every ifstream can throw exceptions
+	for(std::ifstream& i : shaderFile)
+	{
+		i.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+	}
+
+	//read files and get 
+	try
+	{
+		//open every file
+		for (int i = 0; i < MAX_SHADER_NUMBER; i++) { shaderFile[i].open(paths[i]); }
+		
+		//put every file's content into sstreams and convert them into string
+		std::stringstream shaderStream[MAX_SHADER_NUMBER];
+
+		for (int i = 0; i < MAX_SHADER_NUMBER; i++)
+		{
+			shaderStream[i] << shaderFile[i].rdbuf();
+			stringSourceCode[i] = shaderStream[i].str();
+			sourceCode[i] = stringSourceCode[i].c_str();
+		}
+		
+		//close every file
+		for (std::ifstream& i : shaderFile) { i.close(); }
+		
+	}
+	catch (std::ifstream::failure e)
+	{
+		std::cout << "ERROR::SHADER::FILE_NOT_SUCCESSFULLY_READ" << std::endl;
+	}
+
+	//convert into const char*
+	for (int i = 0; i < MAX_SHADER_NUMBER; i++)
+	{
+		sourceCode[i] = stringSourceCode[i].c_str();
+	}
+	
+
 }
 
 unsigned int Shader::getID()
