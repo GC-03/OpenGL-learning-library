@@ -13,63 +13,36 @@
 #include <fstream>
 #include <sstream>
 
-enum ShaderType { vertexShader, fragmentShader };
-constexpr int MAX_SHADER_NUMBER = 2;
+static std::string readShaderSourceCode(const char* shaderPath);
 
 Shader::Shader(const char* vertexPath, const char* fragmentPath)
 {
-	const char* paths[] = {vertexPath, fragmentPath};
-	const char* sourceCode[MAX_SHADER_NUMBER];
-	std::string stringSourceCode[MAX_SHADER_NUMBER];
-	std::ifstream shaderFile[MAX_SHADER_NUMBER];
+	const char* vertexSourceCode;
+	const char* fragmentSourceCode;
 
-	//ensure every ifstream can throw exceptions
-	for(std::ifstream& i : shaderFile)
-	{
-		i.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-	}
-
-	//read files and get 
+	//Read source code
 	try
 	{
-		//open every file
-		for (int i = 0; i < MAX_SHADER_NUMBER; i++) { shaderFile[i].open(paths[i]); }
-		
-		//put every file's content into sstreams and convert them into string
-		std::stringstream shaderStream[MAX_SHADER_NUMBER];
-
-		for (int i = 0; i < MAX_SHADER_NUMBER; i++)
-		{
-			shaderStream[i] << shaderFile[i].rdbuf();
-			stringSourceCode[i] = shaderStream[i].str();
-			sourceCode[i] = stringSourceCode[i].c_str();
-		}
-		
-		//close every file
-		for (std::ifstream& i : shaderFile) { i.close(); }
-		
+		vertexSourceCode = readShaderSourceCode(vertexPath).c_str();
+		fragmentSourceCode = readShaderSourceCode(fragmentPath).c_str();
 	}
 	catch (std::ifstream::failure e)
 	{
-		std::cout << "ERROR::SHADER::FILE_NOT_SUCCESSFULLY_READ" << std::endl;
-	}
-
-	//convert into const char*
-	for (int i = 0; i < MAX_SHADER_NUMBER; i++)
-	{
-		sourceCode[i] = stringSourceCode[i].c_str();
+		std::cerr << "ERROR::SHADER::FILE_NOT_SUCCESSFULLY_READ" << std::endl;
+		std::cerr << e.what() << std::endl;
+		throw;
 	}
 	
 	//Compilation
 	unsigned int vertex, fragment;
 
 	vertex = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertex, 1, &sourceCode[ShaderType::vertexShader], NULL);
+	glShaderSource(vertex, 1, &vertexSourceCode, NULL);
 	glCompileShader(vertex);
 	checkShaderCompilation(vertex);
 
 	fragment = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragment, 1, &sourceCode[ShaderType::fragmentShader], NULL);
+	glShaderSource(fragment, 1, &fragmentSourceCode, NULL);
 	glCompileShader(fragment);
 	checkShaderCompilation(fragment);
 
@@ -121,7 +94,7 @@ void Shader::checkShaderCompilation(GLuint shader)
 		glGetShaderiv(shader, GL_SHADER_TYPE, &type);
 		typeName = getShaderTypeName(type);
 		glGetShaderInfoLog(shader, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::" << typeName << "::COMPILATION_FAILED" << std::endl << infoLog << std::endl;
+		std::cerr << "ERROR::SHADER::" << typeName << "::COMPILATION_FAILED" << std::endl << infoLog << std::endl;
 	}
 }
 
@@ -147,6 +120,39 @@ void Shader::checkShaderProgramLinking(GLuint shaderProgram)
 	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
 	if (!success) {
 		glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::PROGRAM::LINK_FAILED" << std::endl << infoLog << std::endl;
+		std::cerr << "ERROR::SHADER::PROGRAM::LINK_FAILED" << std::endl << infoLog << std::endl;
 	}
+}
+
+/*
+* Funzione statica per leggere i file sorgente degli shader
+*/
+static std::string readShaderSourceCode(const char* shaderPath)
+{
+	std::ifstream shaderFile;
+	std::stringstream shaderStream;
+
+	//ensure ifstream can throw exceptions
+	shaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+
+	try
+	{
+		//open file
+		shaderFile.open(shaderPath);
+
+		//put file's content into sstreams
+		shaderStream << shaderFile.rdbuf();
+
+		//close file
+		shaderFile.close();
+
+	}
+	catch (std::ifstream::failure e)
+	{
+		std::cerr << "ERROR::SHADER_SOURCE_CODE::PATH: " << shaderPath << std::endl;
+		throw;
+	}
+
+	//return in string
+	return shaderStream.str();
 }
